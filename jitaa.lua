@@ -50,7 +50,7 @@ local maxDownwardPitchDifferenceOnManual = gui.Checkbox(antiAimTab, "c_pitch_hol
 local pitchMin = gui.Slider(antiAimTab, "c_pitch_min", "Min Pitch", -25, -89, -25, 1)
 local pitchMax = gui.Slider(antiAimTab, "c_pitch_max", "Max Pitch", -55, -89, -25, 1)
 
-local fakeAngles = gui.Checkbox(antiAimTab, "c_pitch_fakes", "Use Fake Angles", false);
+local fakeAngles = gui.Checkbox(antiAimTab, "c_pitch_fakes", "Use Fake Pitch", false);
 
 refs.pitch:SetDisabled(true)
 refs.pitchAngle:SetDisabled(true)
