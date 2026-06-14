@@ -63,6 +63,8 @@ local pathMultiplierMax = gui.Slider(
     1
 )
 
+local fractionalJitter = gui.Checkbox(antiAimTab, "c_pitch_mode_frac_jit", "Fractional Jitter", true);
+
 local pitchMin = gui.Slider(antiAimTab, "c_pitch_min", "Min Pitch", -25, -89, -25, 1)
 local pitchMax = gui.Slider(antiAimTab, "c_pitch_max", "Max Pitch", -42, -89, -25, 1)
 
@@ -552,6 +554,12 @@ callbacks.Register("FireGameEvent", function(event)
     end
 end)
 
+local function getFractionalPitch(basePitch)
+    local offset = math.random(1, 999) / 1000
+
+    return basePitch - offset
+end
+
 callbacks.Register("PreMove", function(userCmd)
     if not userCmd then
         return
@@ -573,6 +581,13 @@ callbacks.Register("PreMove", function(userCmd)
 
     refs.pitch:SetValue(pitch)
     refs.yawOffset:SetValue(yaw)
+
+    if fractionalJitter:GetValue() then
+        local nang = userCmd:GetViewAngles()
+        nang.x = getFractionalPitch(nang.x)
+
+        userCmd:SetViewAngles(nang)
+    end
 end)
 
 callbacks.Register("Unload", function()
